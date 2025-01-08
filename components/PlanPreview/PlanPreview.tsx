@@ -1,9 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import moment from 'moment'; // Or use date-fns
-import { styles } from './PlanPreviewStyles';
+import {format} from "date-fns"; // Or use date-fns
+import { StyleSheet } from 'react-native';
 
-const PlanPreview = ({ plan }) => {
+type PlanPreviewProps = {
+    plan: {
+        activity: string;
+        startTime: string;
+        endTime: string;
+        type: string;
+    }[];
+};
+
+const PlanPreview = ({ plan }: PlanPreviewProps) => {
     if (!plan || plan.length === 0) {
         return <Text>No sessions generated yet.</Text>;
     }
@@ -35,4 +44,33 @@ const PlanPreview = ({ plan }) => {
     );
 };
 
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 16,
+    },
+    activityGroup: {
+        marginBottom: 16,
+    },
+    activityTitle: {
+        fontSize: 18,
+        fontWeight: 'semibold',
+        marginBottom: 8,
+    },
+    session: {
+        marginBottom: 4,
+    },
+});
 export default PlanPreview;

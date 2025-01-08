@@ -2,7 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { styles } from './ActivityGroupStyles'; // Import stylesheet
 
-const ActivityGroup = ({ group, index, onChange, onRemove }) => {
+type ActivityGroupProps = {
+    group: {
+        name: string;
+        numberOfSessions: number;
+        sessionLength: number;
+        breakLength: number;
+        interActivityBreak: number;
+    };
+    index: number;
+    onChange: (index: number, field: string, value: string | number) => void;
+    onRemove: (index: number) => void;
+};
+
+const ActivityGroup = ({ group, index, onChange, onRemove }: ActivityGroupProps) => {
     const [name, setName] = useState(group.name);
     const [numberOfSessions, setNumberOfSessions] = useState(group.numberOfSessions);
     const [sessionLength, setSessionLength] = useState(group.sessionLength);
@@ -74,5 +87,34 @@ const ActivityGroup = ({ group, index, onChange, onRemove }) => {
         </View>
     );
 };
+
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        marginBottom: 16,
+        backgroundColor: 'white',
+        elevation: 3, // Android shadow
+        shadowColor: '#000', // iOS shadow
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    heading: {
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 4,
+        padding: 8,
+        marginBottom: 8,
+    },
+});
 
 export default ActivityGroup;

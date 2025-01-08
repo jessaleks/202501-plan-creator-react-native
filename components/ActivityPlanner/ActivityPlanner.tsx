@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TextInput, Button, Alert } from 'react-native';
-import ActivityGroup from './ActivityGroup';
-import PlanPreview from './PlanPreview';
-import { styles } from './ActivityPlannerStyles';
-import { groups as initialGroups } from './initialData'; // Import initial data
-import axios from 'axios'; // For making API requests
+import ActivityGroup from '../ActivityGroup/ActivityGroup';
+import PlanPreview from '../PlanPreview/PlanPreview';
 
+
+
+import { StyleSheet } from 'react-native';
 const ActivityPlanner = () => {
-    const [groups, setGroups] = useState(initialGroups);
+    const [groups, setGroups] = useState([]);
     const [generatedPlan, setGeneratedPlan] = useState([]);
     const [error, setError] = useState('');
 
@@ -98,5 +98,39 @@ const ActivityPlanner = () => {
         </ScrollView>
     );
 };
+
+
+const styles = StyleSheet.create({
+    container: {
+        flexGrow: 1, // Important for ScrollView to work correctly
+        padding: 16,
+        backgroundColor: '#f0f0f0',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    description: {
+        fontSize: 16,
+        color: '#666',
+        marginBottom: 24,
+        textAlign: 'center',
+    },
+    error: {
+        backgroundColor: '#f8d7da',
+        borderColor: '#f5c6cb',
+        color: '#721c24',
+        padding: 10,
+        marginBottom: 10,
+        borderRadius: 4,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 24,
+    },
+});
 
 export default ActivityPlanner;
