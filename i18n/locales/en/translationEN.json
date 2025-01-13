@@ -19,7 +19,15 @@
     "garden": "Your growth is like a garden - some flowers bloom early, others take time.",
     "mountain": "You don't have to reach the mountain peak at once. Every step up counts.",
     "journey": "Your journey is unique. Don't compare it to other paths.",
-    "seed": "You're like a seed - you have all the potential within you to bloom."
+    "seed": "You're like a seed - you have all the potential within you to bloom.",
+    "youveGotThis": "You're on the right path. Trust in yourself and your journey.",
+    "neverGiveUp": "It's okay to take things one step at a time. Every step forward matters.",
+    "believeInYourself": "Trust in yourself and your feelings. You are enough just as you are.",
+    "riseAbove": "You navigate through challenges in your own way. Every bit of growth is meaningful.",
+    "innerPeace": "Find moments of calm and peace. They matter too.",
+    "progressNotPerfection": "It's about progress, not perfection. You're doing wonderfully!",
+    "kindToYourself": "Be gentle with yourself. You deserve care and compassion.",
+    "oneStepAtATime": "Each step brings you closer to the goal. Focus on one task at a time."
   },
   "break_messages": {
     "msg1": "Take a breath. Your emails can wait - they'll still be there after your break.",
