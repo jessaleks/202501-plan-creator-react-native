@@ -11,7 +11,10 @@ module.exports = function (api) {
                         "@better-auth/expo/client": "./node_modules/@better-auth/expo/dist/client.js",
                     },
                     extensions: [".js", ".jsx", ".ts", ".tsx"],
+
                 },
+                "inline-import",
+                {"extensions": [".sql"]}
             ],
         ],
     };

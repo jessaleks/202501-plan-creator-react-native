@@ -1,10 +1,10 @@
 import {signal} from "@preact/signals-react";
-import {loadSessionsFromStorage} from "@/stores/index";
+import {loadActivitiesFromStorage} from "@/stores/index";
 
 export type Feeling = 'good' | 'neutral' | 'bad';
 
 // one of the Sessions that users may complete
-export type AppSession = {
+export type Activity = {
     id: string;
     // the total length
     length: string;
@@ -12,10 +12,13 @@ export type AppSession = {
     feeling: Feeling;
     timestamp: string;
     wasInterrupted: boolean;
+    numberOfSessions: number,
+    sessionLength: number,
+    breakLength: number,
 }
 
-export const SessionsStore = signal<AppSession[]>([]);
+export const ActivitiesStore = signal<Activity[]>([]);
 
 export const initializeSessionsStore = async () => {
-    SessionsStore.value = await loadSessionsFromStorage();
+    ActivitiesStore.value = await loadActivitiesFromStorage();
 };

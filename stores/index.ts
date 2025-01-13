@@ -1,31 +1,29 @@
 import {CookieStore} from './CookieStore'
-import {SessionsStore} from "./SessionsStore";
+import {ActivitiesStore, Activity, Feeling, initializeSessionsStore} from "./ActivitiesStore";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signal } from '@preact/signals-react';
-import { Session } from './SessionsStore';
 
 // Function to save signals to async storage
-export const saveSessionsToStorage = async (sessions: Session[]) => {
+export const saveActivitiesToStorage = async (activities: Activity[]) => {
     try {
-        const jsonValue = JSON.stringify(sessions);
-        await AsyncStorage.setItem('@sessions', jsonValue);
+        const jsonValue = JSON.stringify(activities);
+        await AsyncStorage.setItem('@activities', jsonValue);
     } catch (e) {
         console.error('Failed to save sessions to storage', e);
     }
 };
 
 // Function to load signals from async storage
-export const loadSessionsFromStorage = async () => {
+export const loadActivitiesFromStorage = async () => {
     try {
-        const jsonValue = await AsyncStorage.getItem('@sessions');
+        const jsonValue = await AsyncStorage.getItem('@activities');
         return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
-        console.error('Failed to load sessions from storage', e);
+        console.error('Failed to load activities from storage', e);
         return [];
     }
 };
-export {CookieStore, SessionsStore}
+export {CookieStore, ActivitiesStore, initializeSessionsStore, Activity, Feeling}
 
 
 
