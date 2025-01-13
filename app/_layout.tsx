@@ -59,8 +59,8 @@ export default function RootLayout() {
         <SafeAreaProvider>
             <SafeAreaView style={styles.centeredView}>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    <Stack initialRouteName="(auth)">
-                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
+                    <Stack initialRouteName="(tabs)">
+
                         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
                         <Stack.Screen name="+not-found"/>
                     </Stack>
