@@ -1,1 +1,9 @@
-{}
+{
+  "positiveReinforements": {
+    "keepGoing": "You can do it!",
+    "keepMoving": "You don't need to complete the task in one go. Keep moving forward! As long as you push forward, you're making progress.",
+    "everyStepCounts": "Every step counts. Keep going!",
+    "iKnowItsHard": "I know it's hard, but you can do it!",
+    "enough": "You are enough. You are great. You are valuable."
+  }
+}

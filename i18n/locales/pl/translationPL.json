@@ -1,1 +1,9 @@
-{}
+{
+  "positiveReinforements": {
+    "keepGoing": "Dasz radę!",
+    "keepMoving": "Nie musisz wykonać zadania od razu. Idź naprzód! Każdy krok jest postępem.",
+    "everyStepCounts": "Każdy krok naprzód to postęp.",
+    "iKnowItsHard": "Wiem, że jest ciężko, ale dasz radę!",
+    "enough": "Jesteś wystarczający. Jesteś wspaniały. Jesteś wartościowy."
+  }
+}

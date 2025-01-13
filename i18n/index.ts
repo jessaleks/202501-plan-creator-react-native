@@ -8,7 +8,9 @@ import translationEN from '@/i18n/locales/en/translationEN.json'
 const resources = {
     "pl-PL": {translation: translationPL},
     "en-US": {translation: translationEN},
-};
+} as const;
+
+export type TranslationKeys = keyof typeof translationPL;
 
 const initI18n = async () => {
     let savedLanguage = await AsyncStorage.getItem("language");
