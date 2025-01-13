@@ -32,10 +32,10 @@ const PlanPreview = ({ plan }: PlanPreviewProps) => {
             {Object.entries(groupedActivities).map(([activityName, sessions]) => (
                 <View key={activityName} style={styles.activityGroup}>
                     <Text style={styles.activityTitle}>{activityName}</Text>
-                    {sessions.map((session, index) => (
+                    {sessions.map((session) => (
                         <Text key={index.toString()} style={styles.session}>
                             {session.type === 'activity' ? `Session ${index + 1}: ` : session.type === 'break' ? `Break ${index + 1}: ` : "Transition: "}
-                            {moment(session.startTime).format('h:mm A')} - {moment(session.endTime).format('h:mm A')}
+                            {format(session.startTime, "p")} - {format(session.startTime, "p")}
                         </Text>
                     ))}
                 </View>
