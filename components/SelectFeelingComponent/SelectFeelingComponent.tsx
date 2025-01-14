@@ -10,8 +10,13 @@ type SelectFeelingComponentProps = {}
 export default function SelectFeelingComponent({}: SelectFeelingComponentProps) {
     const [feeling, setFeeling] = useState<Feeling>();
     return (
+        // create a view lets users choose how they are feeling on an emoji scale or a text scale.
         <ThemedView>
-            <ThemedText>Hello from SelectFeelingComponent.tsx</ThemedText>
+            <ThemedText>How are you feeling?</ThemedText>
+            <ThemedText>😀</ThemedText>
+            <ThemedText>😐</ThemedText>
+            <ThemedText>😞</ThemedText>
         </ThemedView>
+        
     )
 }
