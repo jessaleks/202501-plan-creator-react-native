@@ -1,120 +1,71 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-import { styles } from './ActivityGroupStyles'; // Import stylesheet
+import React, {useState} from 'react';
+import {Button, StyleSheet} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
+import {ThemedView} from '@/components/ThemedView';
+import {ThemedInput} from '@/components/ThemedInput/ThemedInput';
+import {useSignals} from "@preact/signals-react/runtime";
+import {ActivitiesStore} from "@/stores";
 
-type ActivityGroupProps = {
-    group: {
-        name: string;
-        numberOfSessions: number;
-        sessionLength: number;
-        breakLength: number;
-        interActivityBreak: number;
-    };
-    index: number;
-    onChange: (index: number, field: string, value: string | number) => void;
-    onRemove: (index: number) => void;
-};
+const ActivityForm = () => {
+    useSignals();
 
-const ActivityGroup = ({ group, index, onChange, onRemove }: ActivityGroupProps) => {
-    const [name, setName] = useState(group.name);
-    const [numberOfSessions, setNumberOfSessions] = useState(group.numberOfSessions);
-    const [sessionLength, setSessionLength] = useState(group.sessionLength);
-    const [breakLength, setBreakLength] = useState(group.breakLength);
-    const [interActivityBreak, setInterActivityBreak] = useState(group.interActivityBreak);
+    const [activityName, setActivityName] = useState('');
+    const [numberOfSessions, setNumberOfSessions] = useState(1);
+    const [sessionLength, setSessionLength] = useState(30);
+    const [breakLength, setBreakLength] = useState(5);
 
-    const handleInputChange = (field, value) => {
-        const newValue = Math.max(field === 'numberOfSessions' ? 1 : 0, Number(value)); // Handle min values
-        switch (field) {
-            case 'name':
-                setName(newValue);
-                break;
-            case 'numberOfSessions':
-                setNumberOfSessions(newValue);
-                break;
-            case 'sessionLength':
-                setSessionLength(newValue);
-                break;
-            case 'breakLength':
-                setBreakLength(newValue);
-                break;
-            case 'interActivityBreak':
-                setInterActivityBreak(newValue);
-                break;
-            default:
-                break;
-        }
-        onChange(index, field, newValue); // Update parent state
-    };
+    const handleSubmit = () => {
+        ActivitiesStore.value.push()
+    }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>Total Time Planned: {/* Calculate total time */}</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={(text) => handleInputChange('name', text)}
-                placeholder="Activity Name"
+        <ThemedView style={styles.container}>
+            <ThemedText style={styles.label}>Activity Name (e.g., 'Work', 'Study', 'Exercise'):</ThemedText>
+            <ThemedInput
+                value={activityName}
+                onChangeText={setActivityName}
+                placeholder="Enter activity name"
             />
-            <TextInput
-                style={styles.input}
-                keyboardType="number-pad"
+            <ThemedText style={styles.label}>Number of Sessions:</ThemedText>
+            <ThemedInput
                 value={numberOfSessions.toString()}
-                onChangeText={(text) => handleInputChange('numberOfSessions', text)}
-                placeholder="Number of Sessions"
+                onChangeText={(text: string) => setNumberOfSessions(Math.max(1, Number(text)))}
+                keyboardType="numeric"
             />
-            <TextInput
-                style={styles.input}
-                keyboardType="number-pad"
+            <ThemedText style={styles.label}>Session Length (minutes):</ThemedText>
+            <ThemedInput
                 value={sessionLength.toString()}
-                onChangeText={(text) => handleInputChange('sessionLength', text)}
-                placeholder="Session Length (minutes)"
+                onChangeText={(text: string) => setSessionLength(Math.max(1, Number(text)))}
+                keyboardType="numeric"
             />
-            <TextInput
-                style={styles.input}
-                keyboardType="number-pad"
+            <ThemedText style={styles.label}>Break Length (minutes):</ThemedText>
+            <ThemedInput
                 value={breakLength.toString()}
-                onChangeText={(text) => handleInputChange('breakLength', text)}
-                placeholder="Break Length (minutes)"
+                onChangeText={(text: string) => setBreakLength(Math.max(0, Number(text)))}
+                keyboardType="numeric"
             />
-            <TextInput
-                style={styles.input}
-                keyboardType="number-pad"
-                value={interActivityBreak.toString()}
-                onChangeText={(text) => handleInputChange('interActivityBreak', text)}
-                placeholder="Break Length After Activity (minutes)"
-            />
-            <Button title="Remove" onPress={() => onRemove(index)} />
-        </View>
+            <Button title="Submit" onPress={handleSubmit}/>
+        </ThemedView>
     );
 };
-
-import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
         padding: 16,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: 'gray',
         borderRadius: 8,
-        marginBottom: 16,
         backgroundColor: 'white',
-        elevation: 3, // Android shadow
-        shadowColor: '#000', // iOS shadow
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.8,
         shadowRadius: 2,
+        elevation: 5,
     },
-    heading: {
+    label: {
         fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 4,
-        padding: 8,
         marginBottom: 8,
     },
 });
 
-export default ActivityGroup;
+export default ActivityForm;
