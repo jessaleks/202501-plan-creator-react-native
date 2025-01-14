@@ -1,108 +1,68 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TextInput, Button, Alert } from 'react-native';
-import ActivityGroup from '../ActivityGroup/ActivityGroup';
-import PlanPreview from '../PlanPreview/PlanPreview';
+import React, {useState} from 'react';
+import {Button, ScrollView, StyleSheet, Text} from 'react-native';
+import PositiveReinforcementText from "@/components/PositiveReinforcement/PositiveReinforcementText";
+import {ThemedText} from '@/components/ThemedText';
+import {ThemedView} from '@/components/ThemedView';
+import {ThemedInput} from '@/components/ThemedInput/ThemedInput';
 
-
-
-import { StyleSheet } from 'react-native';
 const ActivityPlanner = () => {
-    const [groups, setGroups] = useState([]);
-    const [generatedPlan, setGeneratedPlan] = useState([]);
     const [error, setError] = useState('');
-
-    const handleGroupChange = (index, field, value) => {
-        const updatedGroups = [...groups];
-        updatedGroups[index][field] = value;
-        setGroups(updatedGroups);
-    };
+    const [activityName, setActivityName] = useState('');
+    const [sessionLength, setSessionLength] = useState(30);
+    const [breakLength, setBreakLength] = useState(10);
+    const [repetitions, setRepetitions] = useState(1);
 
     const handleSubmit = async () => {
-        if (groups.some((g) => !g.name || g.numberOfSessions < 1)) {
-            setError("Please fill in all activity names and number of sessions");
-            return;
-        }
-
-        try {
-            const response = await axios.post('/api/v1/ics', {
-                groups,
-                remindersEnabled: true,
-            });
-
-            if (response.status !== 200) {
-                throw new Error("Failed to generate plan");
-            }
-
-            const { plan } = response.data;
-
-            if (plan) {
-                const mappedPlan = plan.flatMap((group) =>
-                    group.sessions.map((session) => ({
-                        activity: session.name,
-                        startTime: session.start,
-                        endTime: session.end,
-                        type: session.type,
-                    }))
-                );
-                setGeneratedPlan(mappedPlan);
-            }
-            setError("");
-        } catch (err) {
-            setError(err.message || "An error occurred");
-            Alert.alert("Error", err.message || "An error occurred"); // Display error alert
-        }
+        // Handle form submission
+        console.log({
+            activityName,
+            sessionLength,
+            breakLength,
+            repetitions,
+        });
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Activity Planner</Text>
-            <Text style={styles.description}>
-                Plan your day simply using your calendar.
-            </Text>
+            <PositiveReinforcementText/>
 
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
-            {groups.map((group, index) => (
-                <ActivityGroup
-                    key={index.toString()} // Use index as key for simplicity in this example
-                    group={group}
-                    index={index}
-                    onChange={handleGroupChange}
-                    onRemove={() => {
-                        const updatedGroups = groups.filter((_, i) => i !== index);
-                        setGroups(updatedGroups);
-                    }}
+            <ThemedView style={styles.formContainer}>
+                <ThemedText style={styles.label}>Activity Name (e.g., 'Work', 'Study', 'Exercise'):</ThemedText>
+                <ThemedInput
+                    value={activityName}
+                    onChangeText={setActivityName}
+                    placeholder="Enter activity name"
                 />
-            ))}
-
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Add Activity Group"
-                    onPress={() => {
-                        setGroups([
-                            ...groups,
-                            {
-                                name: "",
-                                numberOfSessions: 1,
-                                sessionLength: 50,
-                                breakLength: 10,
-                                interActivityBreak: 15,
-                            },
-                        ]);
-                    }}
+                <ThemedText style={styles.label}>Number of Sessions:</ThemedText>
+                <ThemedInput
+                    value={repetitions.toString()}
+                    onChangeText={(text) => setRepetitions(Math.max(1, Number(text)))}
+                    keyboardType="numeric"
                 />
-                <Button title="Generate Plan" onPress={handleSubmit} />
-            </View>
-
-            {generatedPlan.length > 0 && <PlanPreview plan={generatedPlan} />}
+                <ThemedText style={styles.label}>Session Length (minutes):</ThemedText>
+                <ThemedInput
+                    value={sessionLength.toString()}
+                    onChangeText={(text) => setSessionLength(Math.max(1, Number(text)))}
+                    keyboardType="numeric"
+                />
+                <ThemedText style={styles.label}>Break Length (minutes):</ThemedText>
+                <ThemedInput
+                    value={breakLength.toString()}
+                    onChangeText={(text) => setBreakLength(Math.max(0, Number(text)))}
+                    keyboardType="numeric"
+                />
+                <Button title="Submit" onPress={handleSubmit}/>
+            </ThemedView>
         </ScrollView>
     );
 };
 
-
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1, // Important for ScrollView to work correctly
+        flexGrow: 1,
         padding: 16,
         backgroundColor: '#f0f0f0',
     },
@@ -110,12 +70,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
-        textAlign: 'center',
-    },
-    description: {
-        fontSize: 16,
-        color: '#666',
-        marginBottom: 24,
         textAlign: 'center',
     },
     error: {
@@ -126,10 +80,21 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderRadius: 4,
     },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 24,
+    formContainer: {
+        padding: 16,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 8,
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    label: {
+        fontWeight: 'bold',
+        marginBottom: 8,
     },
 });
 
