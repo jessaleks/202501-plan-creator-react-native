@@ -2,15 +2,11 @@ import {ExpoSQLiteDatabase} from "drizzle-orm/expo-sqlite";
 import {Activity as ActivityTable, ActivityInsertZodSchema} from "@/db/schema";
 import {desc, eq} from "drizzle-orm";
 
-export type Feeling = 'good' | 'neutral' | 'bad';
-
 // one of the Sessions that users may complete
 export type Activity = {
     id: string;
     // the total length
     length: string;
-    // how did the user feel after the session
-    feeling: Feeling;
     timestamp: string;
     wasInterrupted: boolean;
     numberOfSessions: number,
@@ -26,7 +22,6 @@ export const insertActivityToDb = async (activity: Activity, db: ExpoSQLiteDatab
         await db.insert(ActivityTable).values({
             createdAt: parsed.createdAt,
             length: parsed.length,
-            feeling: parsed.feeling,
             wasInterrupted: parsed.wasInterrupted,
             numberOfSessions: parsed.numberOfSessions,
             sessionLength: parsed.sessionLength,
