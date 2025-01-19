@@ -1,11 +1,11 @@
-import {ThemedView} from "@/components/ThemedView";
+import { ThemedView } from "@/components/ThemedView/ThemedView";
 
-type CounterContainerProps = {}
+type CounterContainerProps = {};
 
 export default function CounterContainer({}: CounterContainerProps) {
-    return (
-        <ThemedView>
-            <ThemedView>Hello from CounterContainer.tsx</ThemedView>
-        </ThemedView>
-    )
+	return (
+		<ThemedView>
+			<ThemedView>Hello from CounterContainer.tsx</ThemedView>
+		</ThemedView>
+	);
 }
