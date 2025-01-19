@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, StyleSheet } from "react-native";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/ThemedText/ThemedText";
 import { ThemedView } from "@/components/ThemedView/ThemedView";
 import { ThemedInput } from "@/components/ThemedInput/ThemedInput";
 import { useSignals } from "@preact/signals-react/runtime";

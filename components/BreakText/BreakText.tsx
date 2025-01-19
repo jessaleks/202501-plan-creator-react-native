@@ -1,5 +1,5 @@
 import { ThemedView } from "@/components/ThemedView/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/ThemedText/ThemedText";
 
 type BreakTextProps = {};
 

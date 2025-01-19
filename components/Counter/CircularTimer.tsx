@@ -8,7 +8,7 @@ import Animated, {
 	withTiming,
 } from "react-native-reanimated";
 import { ThemedView } from "@/components/ThemedView/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/ThemedText/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { tintColorDark, tintColorLight } from "@/constants/Colors";
 
@@ -37,7 +37,7 @@ const CircularTimer = ({ totalTime }: CircularTimerProps) => {
 			duration: totalTime * 1000,
 			easing: Easing.linear,
 		});
-	}, [totalTime]);
+	}, [totalTime, progress]);
 
 	return (
 		<ThemedView style={styles.container}>

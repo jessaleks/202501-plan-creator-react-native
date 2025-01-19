@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, ScrollView, StyleSheet, Text } from "react-native";
 import PositiveReinforcementText from "@/components/PositiveReinforcement/PositiveReinforcementText";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/ThemedText/ThemedText";
 import { ThemedView } from "@/components/ThemedView/ThemedView";
 import { ThemedInput } from "@/components/ThemedInput/ThemedInput";
 
