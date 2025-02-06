@@ -11,7 +11,8 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "storybook-generate": "sb-rn-get-stories",
-    "windows": "npx @react-native-community/cli run-windows"
+    "windows": "npx @react-native-community/cli run-windows",
+    "macos": "npx react-native run-macos"
   },
   "jest": {
     "preset": "jest-expo"
